@@ -14,7 +14,7 @@
 
   <div class="form-group">
     <label>Дата и время посещения</label>
-    <input name="date_time" type="text" class="form-control" placeholder="Введите дату и время вашего посещения" value="<%= @date_time %>">
+    <input id="datetimepicker" name="date_time" type="text" class="form-control" placeholder="Введите дату и время вашего посещения" value="<%= @date_time %>">
   </div>
 
   <div class="form-group">
@@ -52,9 +52,12 @@
 
 <script type="text/javascript">
 
+  jQuery.datetimepicker.setLocale('en');
   $(function(){
 
     $('#color').simplecolorpicker();
+    jQuery.datetimepicker.setLocale('en');
+    $('#datetimepicker').datetimepicker();
 
   });
 
