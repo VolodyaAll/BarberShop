@@ -20,9 +20,9 @@
   <div class="form-group">
     <label>Выберите парикмахера</label>
     <select class="form-control" name="barber">
-      <option <%= @barber == 'Walter White' ? 'selected' : '' %>>Walter White</option>
-      <option <%= @barber == 'Jessie Pinkman' ? 'selected' : '' %>>Jessie Pinkman</option>
-      <option <%= @barber == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>
+      <% @db.execute 'select * from barbers' do |rows| %>
+        <option <%= @barber == rows[1] ? 'selected' : '' %>><%= rows[1]%></option>
+      <% end %>
     </select>
    </div>  
 
@@ -52,11 +52,11 @@
 
 <script type="text/javascript">
 
-  jQuery.datetimepicker.setLocale('en');
+
   $(function(){
 
     $('#color').simplecolorpicker();
-    jQuery.datetimepicker.setLocale('en');
+
     $('#datetimepicker').datetimepicker();
 
   });

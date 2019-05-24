@@ -8,6 +8,7 @@ require 'sqlite3'
 
 configure do
 	db = get_db
+
 	db.execute 'CREATE TABLE IF NOT EXISTS 
 	"Users"
 	(
@@ -18,6 +19,20 @@ configure do
 		"barber" TEXT,
 		"color" TEXT
 	)'
+
+	db.execute 'CREATE TABLE IF NOT EXISTS 
+	"Barbers"
+	(
+		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
+		"barber" TEXT UNIQUE		
+	)'
+
+	arr = ['Walter White', 'Jessie Pinkman', 'Gus Fring']
+
+	arr.each do |name|
+		db.execute 'INSERT OR IGNORE INTO Barbers(barber) VALUES(?)', name
+	end
+
 end
 
 get '/' do
@@ -30,6 +45,7 @@ get '/about' do
 end
 
 get '/visit' do
+	@db = get_db
 	erb :visit
 end
 
@@ -38,8 +54,9 @@ get '/contacts' do
 end
 
 get '/showusers' do
-	db = get_db
-  	erb "#{db.execute 'select * from Users'}"
+	@db = get_db
+
+  	erb :showusers
 end
 
 post '/visit' do
@@ -48,6 +65,7 @@ post '/visit' do
 	@date_time = params[:date_time]
 	@barber = params[:barber]
 	@color = params[:color]
+	@db = get_db
 
 	hh = {:username => 'Введите имя',
 		:phone => 'Введите телефон',
@@ -59,8 +77,7 @@ post '/visit' do
 		return erb :visit
 	end
 
-	db = get_db
-	db.execute 'INSERT INTO
+	@db.execute 'INSERT INTO
 		Users
 		(
 			username,
