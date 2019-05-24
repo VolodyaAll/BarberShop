@@ -37,6 +37,11 @@ get '/contacts' do
 	erb :contacts
 end
 
+get '/showusers' do
+	db = get_db
+  	erb "#{db.execute 'select * from Users'}"
+end
+
 post '/visit' do
 	@username = params[:username]
 	@phone = params[:phone]
@@ -105,5 +110,7 @@ post '/contacts' do
 end
 
 def get_db
-	return SQLite3::Database.new 'barbershop.db'
+	db = SQLite3::Database.new 'barbershop.db'
+	db.results_as_hash = true
+	return db
 end
