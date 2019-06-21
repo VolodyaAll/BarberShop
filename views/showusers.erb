@@ -12,14 +12,14 @@
   </thead>
   <tbody>
     <% @db.execute 'select * from Users order by id desc' do |rows| %>
-		<tr>
-		  <th scope="row"><%= rows[0]%></th>
-	      <td><%= rows[1]%></td>
-	      <td><%= rows[2]%></td>
-	      <td><%= rows[3]%></td>
-	      <td><%= rows[4]%></td>
-	      <td><%= rows[5]%></td>
-	    </tr>	
-	<% end %>  
+    <tr>
+      <th scope="row"><%= rows[0]%></th>
+        <td><%= rows[1]%></td>
+        <td><%= rows[2]%></td>
+        <td><%= rows[3]%></td>
+        <td><%= rows[4]%></td>
+        <td><%= rows[5]%></td>
+      </tr>
+  <% end %>
   </tbody>
 </table>
